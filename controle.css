@@ -1,0 +1,84 @@
+.resultado {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    gap: 40px;
+
+}
+
+.resultado>div {
+    background: #f6f3f3;
+    padding: 10px 30px;
+    border-radius: 8px;
+    border: 1px solid black;
+}
+
+
+.formulario {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    margin: 20px;
+    gap: 10px;
+
+}
+
+.formulario>div {
+    padding: 10px 20px;
+    border: 1px solid black;
+    border-radius: 8px;
+    background: #fff;
+}
+
+
+.formulario input {
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 14px;
+    width: 100px;
+    text-align: center;
+}
+
+button {
+    background: #403b72;
+    color: white;
+    border: none;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 6px;
+
+}
+
+button:hover {
+    background: #2f2b5a;
+}
+h1{
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+}
+h3{
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+}
+#tebela{
+    display: flex;
+    justify-content: center;
+    border-collapse: collapse;
+    gap: 40px;
+
+}
+
+th,
+td {
+    padding: 10px 100px;
+    border-bottom: 1px solid #414040;
+   
+}
