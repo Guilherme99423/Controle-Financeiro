@@ -1,17 +1,15 @@
 let registros = [];
 
-
 window.onload = function() {
     let dadosSalvos = localStorage.getItem('registros');
     if (dadosSalvos) {
         registros = JSON.parse(dadosSalvos);
-        registros.forEach((reg, index) => {
-            adicionarLinha(reg, index);
+        registros.forEach(reg => {
+            adicionarLinha(reg);
         });
         calcular();
     }
 }
-
 
 function incluir() {
     let desc = document.getElementById("desc").value.trim();
@@ -31,15 +29,12 @@ function incluir() {
 
     registros.push(registro);
     salvarLocalStorage();
-
-    adicionarLinha(registro, registros.length - 1);
-
+    adicionarLinha(registro);
     limparCampos();
     calcular();
 }
 
-
-function adicionarLinha(registro, index) {
+function adicionarLinha(registro) {
     let tabela = document.querySelector("tbody");
     let linha = document.createElement("tr");
 
@@ -50,39 +45,38 @@ function adicionarLinha(registro, index) {
         <td><i class="fa-solid fa-trash" style="cursor:pointer; color:red;"></i></td>
     `;
 
-
     linha.querySelector("i").addEventListener("click", function() {
-        registros.splice(index, 1);
-        salvarLocalStorage();
-        linha.remove();
-        recalcularTudo();
+        let linhaClicada = this.closest('tr');
+        let descLinha = linhaClicada.children[0].textContent;
+        let valorLinha = parseFloat(linhaClicada.children[1].textContent.replace('R$ ', ''));
+        let tipoLinha = linhaClicada.children[2].textContent;
+
+        let idx = registros.findIndex(r => 
+            r.desc === descLinha &&
+            r.valor === valorLinha &&
+            r.tipo === tipoLinha
+        );
+
+        if (idx > -1) {
+            registros.splice(idx, 1);
+            salvarLocalStorage();
+            linhaClicada.remove();
+            calcular();
+        }
     });
 
     tabela.appendChild(linha);
 }
 
-
 function salvarLocalStorage() {
     localStorage.setItem('registros', JSON.stringify(registros));
 }
-
 
 function limparCampos() {
     document.getElementById("desc").value = "";
     document.getElementById("valor").value = "";
     document.getElementById("tipo").value = "";
 }
-
-
-function recalcularTudo() {
-    let tabela = document.querySelector("tbody");
-    tabela.innerHTML = "";
-    registros.forEach((reg, idx) => {
-        adicionarLinha(reg, idx);
-    });
-    calcular();
-}
-
 
 function calcular() {
     let totalEntrada = 0;
@@ -102,4 +96,5 @@ function calcular() {
     document.getElementById("saida").textContent = "R$ " + totalSaida.toFixed(2);
     document.getElementById("total").textContent = "R$ " + totalGeral.toFixed(2);
 }
+
 
